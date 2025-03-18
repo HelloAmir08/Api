@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import SET_NULL
+from django.db.models import SET_NULL, CASCADE
 
 
 class BaseModel(models.Model):
@@ -21,10 +21,17 @@ class Category(BaseModel):
 class Product(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    image = models.ImageField(upload_to='products', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=SET_NULL, blank=True, null=True)
 
 
     def __str__(self):
         return self.name
+
+class Image(BaseModel):
+    product = models.ForeignKey(Product, on_delete=CASCADE, blank=True, null=True)
+    image = models.ImageField(upload_to='images', blank=True, null=True)
+
+class Comment(BaseModel):
+    product = models.ForeignKey(Product, on_delete=CASCADE, blank=True, null=True)
+    comment = models.TextField()
 

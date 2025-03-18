@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from example.models import Category, Product
-from example.serializers import CategorySerializer, ProductSerializer
+from example.models import Category, Product, Image, Comment
+from example.serializers import CategorySerializer, ProductSerializer, ImageSerializer, CommentSerializer
 
 '''Category views'''
 #Category list + create
@@ -25,3 +25,18 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+class ImageList(generics.ListCreateAPIView):
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+
+class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+
+class CommentList(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
