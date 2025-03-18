@@ -40,3 +40,6 @@ class CommentList(generics.ListCreateAPIView):
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

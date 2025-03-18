@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import SET_NULL, CASCADE
+from django.contrib.auth.models import User
 
 
 class BaseModel(models.Model):
@@ -32,6 +33,11 @@ class Image(BaseModel):
     image = models.ImageField(upload_to='images', blank=True, null=True)
 
 class Comment(BaseModel):
-    product = models.ForeignKey(Product, on_delete=CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=CASCADE, blank=True, null=True, related_name='comments')
     comment = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
 
