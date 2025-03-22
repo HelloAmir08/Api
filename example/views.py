@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from example.models import Category, Product, Image, Comment
 from example.serializers import CategorySerializer, ProductSerializer, ImageSerializer, CommentSerializer
+from example.permissions import OnlyWeekDays, CommentPermission
 
 '''Category views'''
 #Category list + create
@@ -34,12 +35,15 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ImageSerializer
 
 class CommentList(generics.ListCreateAPIView):
+    permission_classes = [OnlyWeekDays]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [CommentPermission, OnlyWeekDays]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+
+
