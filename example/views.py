@@ -26,6 +26,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+'''Image views'''
 class ImageList(generics.ListCreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
@@ -34,6 +35,7 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
 
+'''Comment views'''
 class CommentList(generics.ListCreateAPIView):
     permission_classes = [OnlyWeekDays]
     queryset = Comment.objects.all()
